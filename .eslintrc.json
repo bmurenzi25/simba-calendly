@@ -32,6 +32,11 @@
         "import/newline-after-import": "warn",
         "object-shorthand": "off",
         "class-methods-use-this": "off",
-        "consistent-return": "off"
+        "consistent-return": "off",
+        "react/react-in-jsx-scope" : "off",
+        "arrow-body-style" : "off",
+        "react/function-component-definition" : "off",
+        "react/jsx-filename-extension": "off",
+        "import/extensions" : "off"
     }
 }
