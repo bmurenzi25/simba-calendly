@@ -1,10 +1,47 @@
 import type { NextPage } from 'next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Image from 'next/image';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import axios from 'axios';
+
 import Header from '../components/header';
 
+interface FormValues {
+  username: string;
+  email: string;
+  password: string;
+}
+const schema = Yup.object({
+  username: Yup.string()
+    .required('Username is required')
+    .max(50, 'Username cant exceeds 50 characters long')
+    .min(6, 'Username cannot be less than 6 characters'),
+  email: Yup.string()
+    .required('Email field cannot be empty')
+    .max(50, 'Email cannot be more than 6 exceeds than 50 characters long')
+    .min(5, 'Email cannot be less than 5 characters long'),
+  password: Yup.string()
+    .required('Password is a required field')
+    .min(5, 'Password cannot be less than 5 characters long'),
+});
 const Home: NextPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+
+    await axios.post('/api/auth/register', {
+      ...data,
+    })
+    
+  };
+
   return (
     <div>
       <Header />
@@ -19,7 +56,7 @@ const Home: NextPage = () => {
               <p className="mt-4 text-gray-400">
                 " I love being able to use a tool that just works, and that is
                 open source. As a developer, I love being empowered to
-                contribute to a tool that I use reguraly"
+                contribute to a tool that I use regularly"
               </p>
               <div className="flex items-center gap-4 mt-8">
                 <AccountCircleIcon />
@@ -49,35 +86,38 @@ const Home: NextPage = () => {
                     <KeyboardArrowDownIcon />
                     <div className="border border-gray-400 w-[48%]" />
                   </div>
-                  <form action="#">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-6">
                       <div className="flex">
                         <div className="w-1/3 px-3 py-2 bg-gray-200 border">
                           <p>Cal.com /</p>
                         </div>
                         <input
+                          {...register('username')}
                           type="text"
-                          name="username"
                           className="w-full px-3 py-2 border focus:outline-none focus:shadow-outline"
                           placeholder="Username"
                         />
                       </div>
+                      <p className="text-red-700">{errors.username?.message}</p>
                     </div>
                     <div className="mt-6">
                       <input
+                        {...register('email')}
                         type="email"
-                        name="email"
                         className="w-full px-3 py-2 border focus:outline-none focus:shadow-outline"
                         placeholder="Email Address"
                       />
+                      <p className="text-red-700">{errors.email?.message}</p>
                     </div>
                     <div className="mt-6">
                       <input
+                        {...register('password')}
                         type="password"
-                        name="email"
                         className="w-full px-3 py-2 border focus:outline-none focus:shadow-outline"
                         placeholder="*************"
                       />
+                      <p className="text-red-700">{errors.password?.message}</p>
                     </div>
                     <div className="mt-6">
                       <button
