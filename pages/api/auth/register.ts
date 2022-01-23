@@ -21,7 +21,6 @@ export default async function handler(
       },
     });
     console.log(userExists);
-    
     if (userExists) {
       return res.status(400).json({
         status: false,
@@ -40,19 +39,14 @@ export default async function handler(
         password: hash,
       },
     });
-    console.log(user);
-    
-  
     const token = encodeToken(user);
-    console.log("token", token);
-    
     delete user.password;
 
     res.status(200).json({
       status: true,
       message: 'User registration succeeded',
       token,
-      data: user
+      data: user,
     });
   } catch (error) {
     return res.status(400).json({

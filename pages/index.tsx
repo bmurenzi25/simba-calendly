@@ -6,6 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import { useState, useEffect } from 'react';
+import { CircularProgress } from '@mui/material';
+import Router from 'next/router';
 import Header from '../components/header';
 
 interface FormValues {
@@ -27,6 +30,15 @@ const schema = Yup.object({
     .min(5, 'Password cannot be less than 5 characters long'),
 });
 const Home: NextPage = () => {
+  useEffect(() => {
+    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+      Router.push('/bookings');
+    }
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -35,11 +47,19 @@ const Home: NextPage = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-
-    await axios.post('/api/auth/register', {
-      ...data,
-    })
-    
+    setIsLoading(true);
+    try {
+      const res: any = await axios.post('/api/auth/register', {
+        ...data,
+      });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.data));
+      setIsLoading(false);
+    } catch (err: any) {
+      setError(err.message);
+      setIsError(true);
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,12 +71,12 @@ const Home: NextPage = () => {
             <div className="flex-none w-1/2">
               <h4 className="font-bold">Cal.com</h4>
               <h2 className="font-bold text-7xl">
-                You're one step away from simpler scheduling
+                You&apos;re one step away from simpler scheduling
               </h2>
               <p className="mt-4 text-gray-400">
-                " I love being able to use a tool that just works, and that is
+                &quot; I love being able to use a tool that just works, and that is
                 open source. As a developer, I love being empowered to
-                contribute to a tool that I use regularly"
+                contribute to a tool that I use regularly &quot;
               </p>
               <div className="flex items-center gap-4 mt-8">
                 <AccountCircleIcon />
@@ -66,7 +86,7 @@ const Home: NextPage = () => {
                     <span className="text-sky-500">@cassidoo</span>
                   </p>
                   <h6 className="text-gray-400">
-                    Director of Developer Experience at Netilify
+                    Director of Developer Experience at Netlify
                   </h6>
                 </div>
               </div>
@@ -88,6 +108,7 @@ const Home: NextPage = () => {
                   </div>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-6">
+                      {isError && <p className='text-red-600'>{error}</p>}
                       <div className="flex">
                         <div className="w-1/3 px-3 py-2 bg-gray-200 border">
                           <p>Cal.com /</p>
@@ -124,7 +145,7 @@ const Home: NextPage = () => {
                         type="submit"
                         className="w-full py-3 font-bold text-center text-white bg-black"
                       >
-                        Sign up for free
+                        {isLoading ? <CircularProgress /> : 'Sign up for free'}
                       </button>
                     </div>
                   </form>
