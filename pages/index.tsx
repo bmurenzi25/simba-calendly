@@ -1,25 +1,26 @@
 import type { NextPage } from 'next';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Image from 'next/image';
-import Header from '../components/header';
+import Head from 'next/head';
 
 const Home: NextPage = () => {
   return (
     <div>
-      <Header />
+      <Head>
+        <title>Simba Cal App</title>
+      </Head>
       <main>
         <div className="py-7 px-3.5">
           <div className="flex gap-16 p-32">
             <div className="flex-none w-1/2">
               <h4 className="font-bold">Cal.com</h4>
               <h2 className="font-bold text-7xl">
-                You're one step away from simpler scheduling
+                You&apos;re one step away from simpler scheduling
               </h2>
               <p className="mt-4 text-gray-400">
-                " I love being able to use a tool that just works, and that is
+                &quot; I love being able to use a tool that just works, and that
                 open source. As a developer, I love being empowered to
-                contribute to a tool that I use reguraly"
+                contribute to a tool that I use regularly &quot;
               </p>
               <div className="flex items-center gap-4 mt-8">
                 <AccountCircleIcon />
@@ -29,7 +30,7 @@ const Home: NextPage = () => {
                     <span className="text-sky-500">@cassidoo</span>
                   </p>
                   <h6 className="text-gray-400">
-                    Director of Developer Experience at Netilify
+                    Director of Developer Experience at Netlify
                   </h6>
                 </div>
               </div>

@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Login = () => {
@@ -16,6 +17,7 @@ const Login = () => {
             <input
               type="email"
               name="email"
+              id="email"
               className="w-full px-3 py-2 border focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -24,13 +26,12 @@ const Login = () => {
               <label htmlFor="username" className="text-l">
                 Password
               </label>
-              <a href="#" className="text-l">
-                Forgot?
-              </a>
+              <p className="text-l">Forgot?</p>
             </div>
             <input
               type="password"
               name="email"
+              id="username"
               className="w-full px-3 py-2 border focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -44,7 +45,15 @@ const Login = () => {
           </div>
         </form>
         <div className="mt-6 text-center">
-          <p>Don't have an account? <span className='font-bold text-black'> <a href="#">Create an  account </a></span></p>
+          <p>
+            Don&apos;t have an account?{' '}
+            <span className="font-bold text-black">
+              {' '}
+              <Link href="/">
+                <a>Create an account </a>
+              </Link>
+            </span>
+          </p>
         </div>
       </div>
     </div>
