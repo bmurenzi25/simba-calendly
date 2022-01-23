@@ -8,4 +8,13 @@ export default async function handler(
   if (req.method !== 'GET') {
       return;
   }
+
+  const bookings = await prisma.findMany({
+    where: {
+      
+    },
+    include: {
+      attendees: true
+    }
+  });
 }
