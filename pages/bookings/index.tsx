@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Index = () => {
+  useEffect(() => {
+    if (!localStorage.getItem('token')) {
+      return;
+    }
+  }, []);
+
   return (
     <div className="w-full h-screen bg-gray-200">
       <div className="px-16 pt-32">

@@ -1,42 +1,46 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "airbnb",
-        "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 13,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "prettier",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "prettier/prettier": "warn",
-        "no-unused-vars": "warn",
-        "newline-before-return" :"warn",
-        "no-console": "off",
-        "func-names":"off",
-        "import/newline-after-import": "warn",
-        "object-shorthand": "off",
-        "class-methods-use-this": "off",
-        "consistent-return": "off",
-        "react/react-in-jsx-scope" : "off",
-        "arrow-body-style" : "off",
-        "react/function-component-definition" : "off",
-        "react/jsx-filename-extension": "off",
-        "import/extensions" : "off"
-    }
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "modules": true
+  },
+  "plugins": ["react", "react-hooks", "prettier", "@typescript-eslint"],
+  "rules": {
+    "prettier/prettier": "warn",
+    "react/prop-types": "off",
+    "no-unused-vars": "warn",
+    "newline-before-return": "warn",
+    "no-console": "off",
+    "func-names": "off",
+    "import/newline-after-import": "warn",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off",
+    "consistent-return": "off",
+    "react/react-in-jsx-scope": "off",
+    "arrow-body-style": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-filename-extension": "off",
+    "import/extensions": "off",
+    "no-useless-return": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "import/no-unresolved": "off",
+    "react/jsx-props-no-spreading" : "warn",
+    "default-case": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/anchor-is-valid" : "off"
+  }
 }
