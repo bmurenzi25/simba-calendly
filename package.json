@@ -2,9 +2,9 @@
   "name": "simba-cal-app",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npx prisma db push && next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "npx prisma db push && next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "react-calendar": "^3.6.0",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.24.1",
+    "slugify": "^1.6.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {

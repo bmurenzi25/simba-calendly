@@ -31,7 +31,7 @@ const schema = Yup.object({
 });
 const Home: NextPage = () => {
   useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+    if (localStorage.getItem('token')) {
       Router.push('/bookings');
     }
   });

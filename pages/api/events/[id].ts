@@ -11,25 +11,25 @@ export default async function handler(
 
   try {
     const { id } = req.query;
-    const bookings = await prisma.booking.findMany({
+    const events = await prisma.eventType.findMany({
       where: {
         userId: Number(id),
       },
       include: {
-        attendees: true,
+        bookings: true,
       },
     });
-    console.log("Bookings", bookings);
+    console.log("Events", events);
 
     return res.status(200).json({
       status: 'success',
-      message: 'user bookings log',
-      data: bookings,
+      message: 'events data',
+      data: events,
     });
   } catch (err) {
     return res.status(200).json({
       status: 'failed',
-      message: 'error getting bookings',
+      message: 'error getting events',
       data: 'error',
     });
   }

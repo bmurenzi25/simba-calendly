@@ -32,7 +32,6 @@ model EventType {
   id             Int                    @id @default(autoincrement())
   title          String
   slug           String
-  description    String?
   length         Int
   users          User[]                 @relation("user_eventtype")
   userId         Int?
