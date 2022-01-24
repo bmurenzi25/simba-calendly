@@ -1,29 +1,27 @@
 import axios from 'axios';
 import { useEffect, useReducer } from 'react';
 
-const useAxiosFetch = (url: string) => {
-  const [state, dispatch] = useReducer(
-    (state, action) => {
-      switch (action.type) {
-        case 'INIT':
-          return { ...state, isLoading: true, isError: false, data: null };
-        case 'SUCCESS':
-          return {
-            ...state,
-            isLoading: false,
-            isError: false,
-            data: action.payload,
-          };
-        case 'ERROR':
-          return { ...state, isLoading: false, isError: true, data: null };
-      }
-    },
-    {
-      isLoading: false,
-      isError: false,
-      data: null,
+const UseAxiosFetch = (url: string) => {
+  function reducer(state: any, action: any) {
+    switch (action.type) {
+      case 'INIT':
+        return { ...state, isLoading: true, isError: false, data: null };
+      case 'SUCCESS':
+        return {
+          ...state,
+          isLoading: false,
+          isError: false,
+          data: action.payload,
+        };
+      case 'ERROR':
+        return { ...state, isLoading: false, isError: true, data: null };
     }
-  );
+  }
+  const [state, dispatch] = useReducer(reducer, {
+    isLoading: false,
+    isError: false,
+    data: null,
+  });
 
   useEffect(() => {
     if (!url) {
@@ -44,4 +42,4 @@ const useAxiosFetch = (url: string) => {
   return state;
 };
 
-export default useAxiosFetch;
+export default UseAxiosFetch;

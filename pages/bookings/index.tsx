@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CloseIcon from '@mui/icons-material/Close';
+import UseAxiosFetch from '../../lib/axios/useAxiosFetch';
 
 const Index = () => {
   useEffect(() => {
@@ -54,14 +55,25 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className='grid mt-8 place-items-center'>
-            <div className='p-2 bg-gray-400'>
-                <p className='text-white'>No More Results</p>
-            </div>
+        <div className="grid mt-8 place-items-center">
+          <div className="p-2 bg-gray-400">
+            <p className="text-white">No More Results</p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const id = localStorage.getItem('token');
+  const res = UseAxiosFetch(`/bookings/${id}`);
+  // const res = await fetch(`https://.../data`);
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { data } };
+}
 
 export default Index;
