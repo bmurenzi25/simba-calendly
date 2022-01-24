@@ -19,7 +19,7 @@ const schema = Yup.object({
 
 const Login = () => {
   useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+    if (localStorage.getItem('token')) {
       Router.push('/bookings');
     }
   });

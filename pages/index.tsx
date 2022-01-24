@@ -31,7 +31,7 @@ const schema = Yup.object({
 });
 const Home: NextPage = () => {
   useEffect(() => {
-    if (localStorage.getItem('token') && localStorage.getItem('user')) {
+    if (localStorage.getItem('token')) {
       Router.push('/bookings');
     }
   });
@@ -53,7 +53,8 @@ const Home: NextPage = () => {
         ...data,
       });
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.data));
+      localStorage.setItem('name', JSON.stringify(res.data.data.name));
+      localStorage.setItem('id', JSON.stringify(res.data.data.id));
       setIsLoading(false);
     } catch (err: any) {
       setError(err.message);
@@ -74,8 +75,8 @@ const Home: NextPage = () => {
                 You&apos;re one step away from simpler scheduling
               </h2>
               <p className="mt-4 text-gray-400">
-                &quot; I love being able to use a tool that just works, and that is
-                open source. As a developer, I love being empowered to
+                &quot; I love being able to use a tool that just works, and that
+                is open source. As a developer, I love being empowered to
                 contribute to a tool that I use regularly &quot;
               </p>
               <div className="flex items-center gap-4 mt-8">
@@ -108,7 +109,7 @@ const Home: NextPage = () => {
                   </div>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mt-6">
-                      {isError && <p className='text-red-600'>{error}</p>}
+                      {isError && <p className="text-red-600">{error}</p>}
                       <div className="flex">
                         <div className="w-1/3 px-3 py-2 bg-gray-200 border">
                           <p>Cal.com /</p>
