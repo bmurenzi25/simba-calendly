@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { extractToken } from '../../../lib/authentication/auth_helpers';
 import prisma from '../../../lib/prisma';
 
 export default async function handler(
@@ -8,7 +9,11 @@ export default async function handler(
   if (req.method !== 'GET') {
     return;
   }
-
+  const header = req.headers;
+  const token = extractToken(header.authorization);
+  if (!token) {
+    return;
+  }
   try {
     const { id } = req.query;
     const bookings = await prisma.booking.findMany({
@@ -19,7 +24,6 @@ export default async function handler(
         attendees: true,
       },
     });
-    console.log("Bookings", bookings);
 
     return res.status(200).json({
       status: 'success',

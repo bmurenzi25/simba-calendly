@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import { GetServerSideProps } from 'next';
 
 // import UseAxios÷Fetch from '../../lib/axios/useAxiosFetch';
 
@@ -13,8 +12,13 @@ const Index = () => {
       return;
     }
     const id = Number(localStorage.getItem('id'));
+    const token = localStorage.getItem('token');
     const getBookings = async () => {
-      const result = await axios.get(`/api/bookings/${id}`);
+      const result = await axios.get(`/api/bookings/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setBookings(result.data);
       console.log('Bookings', bookings);
     };
@@ -75,17 +79,17 @@ const Index = () => {
     </div>
   );
 };
-export const getServerSideProps: GetServerSideProps = async () => {
-  // Fetch data from external API
-  // const id = localStorage.getItem('token');
-  const id = 1;
-  // const res = await axios(`/api/bookings/${id}`);
-  // alert(res);
-  // const res = await fetch(`https://.../data`);
-  // const data =  res.json();
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   // Fetch data from external API
+//   // const id = localStorage.getItem('token');
+//   // const id = 1;
+//   // const res = await axios(`/api/bookings/${id}`);
+//   // alert(res);
+//   // const res = await fetch(`https://.../data`);
+//   // const data =  res.json();
 
-  // Pass data to the page via props
-  return { props: { id } };
-};
+//   // Pass data to the page via props
+//   // return { props: { id } };
+// };
 
 export default Index;
